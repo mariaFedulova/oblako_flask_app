@@ -43,11 +43,8 @@ jobs:
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v1 
 
-    - name: Build Docker images
-      run: docker compose build
-
-    - name: Run tests
-      run: docker compose run pytest
+    - name: Build and run tests
+      run: docker compose up -d
 
     - name: Shut down Docker Compose
       run: docker compose -f docker-compose.yml down
