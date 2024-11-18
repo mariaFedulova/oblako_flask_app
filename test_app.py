@@ -15,7 +15,7 @@ def test_root(client):
 def test_data_page(client):
     response = client.get('/data')
     assert response.status_code == 200
-    assert b'This is some data!' in response.data # Проверка наличия кэшированных данных
+    assert b'This is some data!' in response.data 
 
 def test_users_page(client):
     response = client.get('/users')
@@ -25,7 +25,7 @@ def test_users_page(client):
 def test_cache(client):
     response1 = client.get('/data')
     response2 = client.get('/data')
-    assert response1.data == response2.data # Данные должны быть одинаковыми из-за кэша
+    assert response1.data == response2.data 
 
 # Тестирование исключений
 def test_404(client):
