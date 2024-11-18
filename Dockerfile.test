@@ -1,0 +1,24 @@
+# Используем базовый образ Python
+FROM python:3.9-alpine 
+
+# Устанавливаем рабочую директорию
+WORKDIR /app
+
+# Устанавливаем системные зависимости
+RUN apk add --no-cache \
+    postgresql-dev \
+    gcc \
+    musl-dev
+
+# Копируем файл зависимостей и устанавливаем их
+COPY requirements.txt requirements.txt
+RUN pip install -r requirements.txt
+
+# Устанавливаем pytest
+RUN pip install pytest
+
+# Копируем исходный код приложения
+COPY . .
+
+# Команда для запуска тестов
+CMD ["pytest -p no:warnings"]
