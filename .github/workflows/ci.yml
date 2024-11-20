@@ -46,7 +46,7 @@ jobs:
     needs: build 
     steps:
     - name: Run tests
-      run: docker-compose run app pytest
+      run: docker compose run app pytest
 
   deploy:
     runs-on: ubuntu-latest
