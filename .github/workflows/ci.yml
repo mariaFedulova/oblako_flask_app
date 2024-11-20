@@ -27,12 +27,19 @@ jobs:
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v1
 
-    - name: Build and Push Docker Image
+    - name: Build and push Flask app image
       env:
         DOCKERHUB_USERNAME: ${{ secrets.DOCKER_USERNAME }}
       run: |
-        docker build -t $DOCKERHUB_USERNAME/flask-app .
-        docker push $DOCKERHUB_USERNAME/flask-app:latest
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/flask-app -f Dockerfile.app .
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/flask-app:latest
+          
+    - name: Build and push Flask test image
+      env:
+        DOCKERHUB_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+      run: |
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/flask-test -f Dockerfile.test .
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/flask-test:latest
 
   test:
     runs-on: ubuntu-latest
