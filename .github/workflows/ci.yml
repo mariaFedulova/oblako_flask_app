@@ -31,8 +31,8 @@ jobs:
       env:
         DOCKERHUB_USERNAME: ${{ secrets.DOCKER_USERNAME }}
       run: |
-      docker build-t $DOCKERHUB_USERNAME/flask-app .
-      docker push $DOCKERHUB_USERNAME/flask-app:latest
+        docker build-t $DOCKERHUB_USERNAME/flask-app .
+        docker push $DOCKERHUB_USERNAME/flask-app:latest
 
   test:
     runs-on: ubuntu-latest
@@ -50,5 +50,5 @@ jobs:
         DOCKERHUB_USERNAME: ${{ secrets.DOCKER_USERNAME }}
         SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
       run: |
-      ssh user@server "docker pull $DOCKERHUB_USERNAME/flask-app:latest &&
-      docker-compose up-d"
+        ssh user@server "docker pull $DOCKERHUB_USERNAME/flask-app:latest &&
+        docker-compose up-d"
