@@ -31,7 +31,7 @@ jobs:
       env:
         DOCKERHUB_USERNAME: ${{ secrets.DOCKER_USERNAME }}
       run: |
-        docker build-t $DOCKERHUB_USERNAME/flask-app .
+        docker build -t $DOCKERHUB_USERNAME/flask-app .
         docker push $DOCKERHUB_USERNAME/flask-app:latest
 
   test:
