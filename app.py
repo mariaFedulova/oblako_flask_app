@@ -19,8 +19,11 @@ app.config['CACHE_REDIS_URL'] =f"redis://{app.config['CACHE_REDIS_HOST']}:{app.c
 cache = Cache(app)
 
 # Конфигурация для подключения к базе данных PostgreSQL
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://user:password@db:5432/app_db'
+POSTGRES_HOST = os.getenv('POSTGRES_HOST', '127.0.0.1')
+POSTGRES_PORT = int(os.getenv('POSTGRES_PORT', '5432'))
+app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql://user:password@db:5432/flask_db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
 
 # Инициализация SQLAlchemy
 db = SQLAlchemy(app)
@@ -29,6 +32,7 @@ migrate = Migrate(app, db) # Инициализация Flask-Migrate
 
 # Пример модели для таблицы "User"
 class User(db.Model):
+    __tablename__ = 'user'
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)

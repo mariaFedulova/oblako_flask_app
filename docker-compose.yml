@@ -13,6 +13,9 @@ services:
       - redis
     environment:
       - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - POSTGRES_HOST=db
+      - POSTGRES_PORT=5432
 
   nginx:
     image: nginx:latest
@@ -27,11 +30,14 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.test
+    depends_on:
+      - app
 
   db:
+    hostname: db
     image: postgres:13
     environment:
-      POSTGRES_DB: app_db
+      POSTGRES_DB: flask_db
       POSTGRES_USER: user
       POSTGRES_PASSWORD: password
     ports:
